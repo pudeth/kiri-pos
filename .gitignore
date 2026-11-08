@@ -1,0 +1,12 @@
+node_modules/
+.DS_Store
+dist/
+cert.pem
+key.pem
+.env
+.env.local
+.vscode/
+*.log
+test_*.js
+inspect_*.js
+photo_*.jpg
