@@ -275,7 +275,19 @@ export default function App() {
       return;
     }
 
-    // 2. Query server barcode lookup API
+    // 2. Check seed catalog fallback
+    const seedProd = DEFAULT_SEED_PRODUCTS.find(p => p.barcode.toLowerCase() === cleanBarcode.toLowerCase());
+    if (seedProd) {
+      setScannedNotFoundCode({
+        code: cleanBarcode,
+        suggestion: seedProd
+      });
+      setScannedFoundProduct(null);
+      playBeep('notice');
+      return;
+    }
+
+    // 3. Query server barcode lookup API
     try {
       const res = await fetch(`/api/barcode/lookup/${encodeURIComponent(cleanBarcode)}`);
       const data = await res.json();

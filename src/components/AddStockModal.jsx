@@ -11,6 +11,41 @@ const CATEGORIES = [
   'អេឡិចត្រូនិក & គ្រឿងបន្លាស់'
 ];
 
+const CLIENT_KNOWN_LOOKUP = {
+  '8809581078888': {
+    name: 'ថ្នាំក្អកកុមារ Tusin Syrup 95ml (Children’s Cold Remedy)',
+    category: 'ឱសថ / សុខភាព',
+    costPrice: 2.50,
+    price: 4.00,
+    stock: 25,
+    minStockAlert: 5
+  },
+  '063038602899': {
+    name: 'JOLLY Cotton Buds 260pcs (សំឡីត្បារត្រចៀក)',
+    category: 'សម្ភារៈប្រើប្រាស់',
+    costPrice: 0.60,
+    price: 1.00,
+    stock: 25,
+    minStockAlert: 5
+  },
+  '63038602899': {
+    name: 'JOLLY Cotton Buds 260pcs (សំឡីត្បារត្រចៀក)',
+    category: 'សម្ភារៈប្រើប្រាស់',
+    costPrice: 0.60,
+    price: 1.00,
+    stock: 25,
+    minStockAlert: 5
+  },
+  '8809758325685': {
+    name: 'Vaseline Collagen Moisture Lotion 1000ml (ឡេលាបខ្លួន)',
+    category: 'គ្រឿងសម្អាង / ថែរក្សាស្បែក',
+    costPrice: 5.00,
+    price: 8.50,
+    stock: 20,
+    minStockAlert: 5
+  }
+};
+
 export default function AddStockModal({
   scannedCode,
   product,
@@ -43,8 +78,24 @@ export default function AddStockModal({
       const lookupBarcode = async () => {
         setAutofilling(true);
         setAutofillSuccess(false);
+
+        // Instant catalog lookup
+        const cleanCode = String(scannedCode).trim();
+        if (CLIENT_KNOWN_LOOKUP[cleanCode]) {
+          const item = CLIENT_KNOWN_LOOKUP[cleanCode];
+          setName(item.name);
+          setCategory(item.category);
+          setNewCostPrice(item.costPrice);
+          setNewSellPrice(item.price);
+          setInitialStock(item.stock);
+          setMinStockAlert(item.minStockAlert);
+          setAutofillSuccess(true);
+          setAutofilling(false);
+          return;
+        }
+
         try {
-          const res = await fetch(`/api/barcode/lookup/${encodeURIComponent(scannedCode)}`);
+          const res = await fetch(`/api/barcode/lookup/${encodeURIComponent(cleanCode)}`);
           if (!res.ok) return;
           const data = await res.json();
           if (data && data.found && data.product && !isCancelled) {
