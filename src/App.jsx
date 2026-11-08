@@ -93,6 +93,8 @@ export default function App() {
   const [showNewProductModal, setShowNewProductModal] = useState(false);
   const [scanToast, setScanToast] = useState(null);
   const [scannerAutoOpen, setScannerAutoOpen] = useState(false);
+  const [scannedFoundProduct, setScannedFoundProduct] = useState(null);
+  const [scannedNotFoundCode, setScannedNotFoundCode] = useState(null);
   const [scanSearchQuery, setScanSearchQuery] = useState('');
 
   // Fetch initial data with automatic LocalStorage caching & offline fallback
