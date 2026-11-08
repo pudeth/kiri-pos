@@ -70,6 +70,20 @@ const DEFAULT_SEED_PRODUCTS = [
     minStockAlert: 5,
     description: 'Vaseline Collagen Moisture Lotion 1000ml.',
     updatedAt: new Date().toISOString()
+  },
+  {
+    id: 'prod-khmer-can',
+    barcode: '8847100741219',
+    name: 'ភេសជ្ជៈប៉ូវកម្លាំង Khmer Beverages 250ml (Red Can)',
+    category: 'ភេសជ្ជៈ & អាហារ',
+    badge: 'ភេសជ្ជៈ',
+    brand: 'Khmer Beverages',
+    costPrice: 0.50,
+    price: 0.75,
+    stock: 30,
+    minStockAlert: 5,
+    description: 'ភេសជ្ជៈកំប៉ុងក្រហម Khmer Beverages 250ml. Made in Cambodia.',
+    updatedAt: new Date().toISOString()
   }
 ];
 

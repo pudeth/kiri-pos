@@ -47,6 +47,18 @@ const KNOWN_CATALOG = {
     minStockAlert: 5,
     description: 'Vaseline Collagen Moisture Lotion 1000ml (바세린 콜라겐 모이스처 로션) - Gentle woody scent. Moisturize dry, rough skin with collagen.',
     image: ''
+  },
+  '8847100741219': {
+    name: 'ភេសជ្ជៈប៉ូវកម្លាំង Khmer Beverages 250ml (Red Can)',
+    category: 'ភេសជ្ជៈ & អាហារ',
+    badge: 'ភេសជ្ជៈ',
+    brand: 'Khmer Beverages',
+    costPrice: 0.50,
+    price: 0.75,
+    stock: 30,
+    minStockAlert: 5,
+    description: 'ភេសជ្ជៈកំប៉ុងក្រហម Khmer Beverages 250ml. Made in Cambodia.',
+    image: ''
   }
 };
 

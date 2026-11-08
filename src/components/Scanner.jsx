@@ -172,22 +172,9 @@ export default function Scanner({
     }
 
     const now = Date.now();
-    // Prevent duplicate scan within 2.5 seconds
-    if (cleanCode === lastScannedCodeRef.current && now - lastScannedTimeRef.current < 2500) {
+    // Prevent duplicate scan within 2 seconds
+    if (cleanCode === lastScannedCodeRef.current && now - lastScannedTimeRef.current < 2000) {
       return;
-    }
-
-    // Stabilization filter: require code to be detected in 2 consecutive cycles before locking
-    // This prevents premature/flash scanning before the user aims at the barcode
-    if (candidateCodeRef.current !== cleanCode) {
-      candidateCodeRef.current = cleanCode;
-      candidateHitsRef.current = 1;
-      return;
-    } else {
-      candidateHitsRef.current += 1;
-      if (candidateHitsRef.current < 2) {
-        return;
-      }
     }
 
     lastScannedCodeRef.current = cleanCode;
@@ -200,7 +187,7 @@ export default function Scanner({
       try { navigator.vibrate([40, 30, 40]); } catch {}
     }
 
-    // Give user 380ms visual confirmation: green viewfinder locks on barcode and cashier beep sounds
+    // Give user 350ms visual confirmation: green viewfinder locks on barcode and cashier beep sounds
     setTimeout(async () => {
       // 1. First, cleanly stop all video hardware streams and clear tracks
       await stopScanner();
@@ -209,7 +196,7 @@ export default function Scanner({
       if (onOpenStateChange) onOpenStateChange(false);
       // 3. Deliver scanned barcode to parent (modal opens over clean static background)
       onScan(cleanCode);
-    }, 380);
+    }, 350);
   }, [onScan, onOpenStateChange, stopScanner]);
 
   const startScanner = useCallback(async () => {
@@ -249,8 +236,9 @@ export default function Scanner({
       const config = {
         fps: 24,
         qrbox: (viewfinderWidth, viewfinderHeight) => {
-          const width = Math.min(Math.floor(viewfinderWidth * 0.85), 340);
-          const height = Math.min(Math.floor(viewfinderHeight * 0.55), 220);
+          // Generous responsive area captures full 1D barcodes on cans and boxes with complete quiet zones
+          const width = Math.min(Math.floor(viewfinderWidth * 0.94), 420);
+          const height = Math.min(Math.floor(viewfinderHeight * 0.72), 300);
           return { width, height };
         },
         aspectRatio: 1.333333,

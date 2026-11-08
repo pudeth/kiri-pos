@@ -43,6 +43,14 @@ const CLIENT_KNOWN_LOOKUP = {
     price: 8.50,
     stock: 20,
     minStockAlert: 5
+  },
+  '8847100741219': {
+    name: 'ភេសជ្ជៈប៉ូវកម្លាំង Khmer Beverages 250ml (Red Can)',
+    category: 'ភេសជ្ជៈ & អាហារ',
+    costPrice: 0.50,
+    price: 0.75,
+    stock: 30,
+    minStockAlert: 5
   }
 };
 
